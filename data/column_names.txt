@@ -1,0 +1,6 @@
+filename columns
+movie.metadata.tsv "movie_wikipedia_id,movie_freebase_id,movie_name,movie_release_date,box_office,runtime,languages,countries,genres"
+character.metadata.tsv "movie_wikipedia_id,movie_freebase_id,movie_release_date,character_name,actor_birth_date,actor_gender,actor_height,actor_ethnicity,actor_name,actor_age,freebase_map_id,character_freebase_id,actor_freebase_id"
+plot_summaries.txt "movie_wikipedia_id,plot"
+name.clusters.txt "character_name,freebase_map_id"
+tvtropes.clusters.txt "trope,data"
