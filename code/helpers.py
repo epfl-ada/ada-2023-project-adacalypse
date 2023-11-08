@@ -61,3 +61,28 @@ def load_data_with_columns(folder, filename):
         data = expand_list_data(data, 'data', ['character_name', 'movie_name', 'freebase_map_id', 'actor_name'])
 
     return data
+
+def bin_into_decades(df, column):
+    """
+        Takes a DataFrame with a date-valued column and appends a 'decade' column.
+        May yield NaTs if the column data cannot be parsed.
+
+        Parameters:
+            (DataFrame) df: a frame with a date-valued column
+            (string) column: the name of the date-valued column
+    """
+    # Copy the original dataframe
+    df_copy = df.copy()
+
+    # Try to parse column data as timestamps.
+    df_copy[column] = pd.to_datetime(df_copy[column], format='mixed', errors='coerce')
+
+    # Compute decade bounds and bins
+    start = str(df_copy[column].min().year // 10 * 10)
+    end = str((df_copy[column].max().year // 10 + 1) * 10)
+    decades = pd.date_range(start=start, end=end, freq='10YS', inclusive='both')
+
+    # Append 'decade' column
+    df_copy['decade'] = pd.cut(df_copy[column], bins=decades, labels=decades[:-1], include_lowest=True)
+
+    return df_copy
