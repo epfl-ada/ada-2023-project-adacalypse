@@ -33,6 +33,8 @@ def expand_list_data(df, column, names):
 def load_data_with_columns(folder, filename):
     """
         Loads file as pandas DataFrame with relevant column names.
+        Does not transform the data other than unpacking array-like data
+        into multiple columns.
 
         Parameters:
             (string) folder: file location ending in / (forward-slash) 
