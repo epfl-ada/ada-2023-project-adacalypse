@@ -1,6 +1,8 @@
 import json
 import pandas as pd
-import re
+import regex as re
+
+>>>>>>> dac0bf4cc986688f82e866554c2232e4ee0177dd
 def print_versions(modules):
     """
         Prints the names and versions of Python modules. This is useful for 
@@ -75,6 +77,13 @@ def extract_year(date):
             return int(match.group(0))
     return None
 
+def date_to_int(dataset, column_name):
+    """
+    Takes a dataset and its column name corresponding to a date as input, and returns the same dataset with its year converted to float
+    Example : movie_metadata = date_to_int(movie_metadata, 'movie_release_date')
+    """
+    dataset[column_name] = dataset[column_name].str[0:4].astype(float)
+    return dataset
 
 def bin_into_decades(df, column):
     """
