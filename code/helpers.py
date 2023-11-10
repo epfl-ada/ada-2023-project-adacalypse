@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-
+import re
 def print_versions(modules):
     """
         Prints the names and versions of Python modules. This is useful for 
