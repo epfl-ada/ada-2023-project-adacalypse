@@ -1,4 +1,3 @@
-
 import json
 import pandas as pd
 
@@ -61,6 +60,21 @@ def load_data_with_columns(folder, filename):
         data = expand_list_data(data, 'data', ['character_name', 'movie_name', 'freebase_map_id', 'actor_name'])
 
     return data
+
+def extract_year(date):
+    """
+    Takes a date as an input, verifies if it is a string,
+    searches for a character of length 4 digits and finally returns
+    it as an integer.
+    Example of usage: movies_df['movie_release_date'] = movies_df['movie_release_date'].apply(extract_year)
+                      movies_df['movie_release_date'] = movies_df['movie_release_date'].fillna(0).astype(int)
+    """
+    if isinstance(date, str):
+        match = re.search(r'(\d{4})', date)
+        if match:
+            return int(match.group(0))
+    return None
+
 
 def bin_into_decades(df, column):
     """
