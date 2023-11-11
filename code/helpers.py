@@ -1,8 +1,8 @@
 import json
 import pandas as pd
 import regex as re
+import ast  # Evaluate the literal syntax tree of a string
 
->>>>>>> dac0bf4cc986688f82e866554c2232e4ee0177dd
 def print_versions(modules):
     """
         Prints the names and versions of Python modules. This is useful for 
@@ -56,6 +56,20 @@ def load_data_with_columns(folder, filename):
 
     # Load data with column names
     data = pd.read_table(folder + filename, names = list(names[names['filename']==filename]['columns'])[0], converters=converters)
+    
+    # Preprocess columns from json to list
+    if filename == 'movie.metadata.tsv':
+        data['genres'] = data['genres'].apply(ast.literal_eval)
+        data['languages'] = data['languages'].apply(ast.literal_eval)
+        data['countries'] = data['countries'].apply(ast.literal_eval)
+        data['genres'] = data['genres'].apply(lambda x: list(x.values()))
+        data['languages'] = data['languages'].apply(lambda x: list(x.values()))
+        data['countries'] = data['countries'].apply(lambda x: list(x.values()))
+        # If freebase_id in json wanted, then expand the data with new colomns instead of replacing them
+        #data['genres_list'] = data['genres'].apply(lambda x: list(x.values()))
+        #data['languages_list'] = data['languages'].apply(lambda x: list(x.values()))
+        #data['countries_list'] = data['countries'].apply(lambda x: list(x.values()))
+    
 
     # Expand list data in tvtropes.clusters.txt into multiple columns
     if filename == 'tvtropes.clusters.txt':
