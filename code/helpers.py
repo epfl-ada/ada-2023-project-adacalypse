@@ -2,7 +2,6 @@ import json
 import pandas as pd
 import regex as re
 
->>>>>>> dac0bf4cc986688f82e866554c2232e4ee0177dd
 def print_versions(modules):
     """
         Prints the names and versions of Python modules. This is useful for 
