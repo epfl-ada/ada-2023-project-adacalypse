@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+import numpy as np
 import regex as re
 import ast  # Evaluate the literal syntax tree of a string
 
@@ -123,3 +124,28 @@ def bin_into_decades(df, column):
     df_copy['decade'] = pd.cut(df_copy[column], bins=decades, labels=decades[:-1], include_lowest=True)
 
     return df_copy
+
+def percent_nans(arr):
+    """
+        Computes the percentage of NaNs in a pandas Series or array-like.
+
+        Returns float in [0..1].
+    """
+    if type(arr)==pd.Series:
+        return arr.isna().agg('mean')
+    else:
+        return len([x for x in arr if pd.isnull(x)]) / len(arr)
+    
+def duplicate_singleton(arr):
+    """
+        Duplicates a singleton list.
+    """
+        
+    if len(arr) == 1:
+        if type(arr)==pd.Series:
+            arr[1]=arr[0]
+            return arr
+        else: 
+            return 2*arr
+    else:
+        return arr
