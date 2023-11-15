@@ -149,3 +149,13 @@ def duplicate_singleton(arr):
             return 2*arr
     else:
         return arr
+
+
+def plot_with_confidence(data, column, label, axis):
+    """
+        Takes a pandas DataFrame and plots its column, as well as confidence
+        intervals represented by columns 'high' and 'low' using fill_between,
+        and plots on given axis.
+    """
+    axis.plot(data[column], label=label)
+    axis.fill_between(x=data.index, y1=data['high'], y2=data['low'], alpha=0.5)
