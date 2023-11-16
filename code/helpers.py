@@ -3,6 +3,13 @@ import pandas as pd
 import numpy as np
 import regex as re
 import ast  # Evaluate the literal syntax tree of a string
+import requests
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords, wordnet
+from bs4 import BeautifulSoup
+import re
 
 def print_versions(modules):
     """
@@ -167,3 +174,116 @@ def plot_with_confidence(data, column, label, axis):
     """
     axis.plot(data[column], label=label)
     axis.fill_between(x=data.index, y1=data['high'], y2=data['low'], alpha=0.5)
+
+def get_movie_release_year(page_id):
+    """ Retrieves the release year of a movie given its Wikipedia page ID. """
+    try:
+        # Construct the URL for the Wikipedia page
+        url = f"https://en.wikipedia.org/wiki?curid={page_id}"
+
+        # Fetch the HTML content of the page
+        response = requests.get(url)
+        if response.status_code != 200:
+            print(f"Failed to retrieve page for Wikipedia ID: {page_id}")
+            return None
+
+        # Parse the HTML content
+        page_parser = BeautifulSoup(response.content, "html.parser")
+
+        # Find the infobox table
+        table_data = page_parser.find("table", class_="infobox")
+        if not table_data:
+            return None
+
+        # Look for the release date entry in the infobox
+        for row in table_data.find_all("tr"):
+            header = row.find("th")
+            if header and "Release date" in header.get_text():
+                # Extract and clean the release date text
+                release_date_cell = row.find("td")
+                release_date = release_date_cell.get_text(separator=" ", strip=True)
+                # Remove reference links and other non-text content
+                release_date = re.sub(r'\[.*?\]', '', release_date)
+                release_date = re.sub(r'\(.*?\)', '', release_date)
+
+                # Extract the year
+                year_match = re.search(r'\b\d{4}\b', release_date)
+                if year_match:
+                    return year_match.group()
+                break
+
+        return None
+
+    except Exception as e:
+        print(f"Error while fetching data for Wikipedia ID {page_id}: {e}")
+        return None
+    
+def extract_worldwide_revenue(sections):
+    """ Extracts the worldwide revenue from the correspondant container """
+    worldwide_div = sections[0].find_all('div', class_='a-section a-spacing-none')[-1]
+    money_span = worldwide_div.find('span', class_='money')
+    
+    if money_span:
+        return money_span.get_text(strip=True)
+    else:
+        return None
+    
+def scrape_box_office(imdb_id):
+    """ Retrieves the box office revenues of a movie given its IMDb ID. """
+    page_url = f"https://www.boxofficemojo.com/title/{imdb_id}/"
+    response = requests.get(page_url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        sections = soup.find_all('div', class_='a-section a-spacing-none mojo-performance-summary-table')
+        return extract_worldwide_revenue(sections)
+    else:
+        return None
+    
+def word_count(text):
+    return len(text.split())
+
+def sentence_count(text):
+    return len(nltk.sent_tokenize(text))
+
+def preprocess(text):
+    # Lowercasing
+    text = text.lower()
+    
+    # Removing special characters and numbers
+    text = re.sub(r'[^a-z\s]', '', text)
+    
+    # Tokenization
+    tokens = word_tokenize(text)
+    
+    # Removing stopwords
+    stop_words = set(stopwords.words('english'))
+    tokens = [word for word in tokens if word not in stop_words]
+   
+    
+    # Lemmatization
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(word) for word in tokens]
+    
+    # Joining back
+    text = ' '.join(tokens)
+    return text
+
+def tokenize_sentences(text):
+    # Tokenizing the text into sentences
+    tokenized_sentences = sent_tokenize(text)
+    return tokenized_sentences
+
+def tokenize_words(text):
+    # Tokenizing the text into words
+    tokenized_words = word_tokenize(text)
+    return tokenized_words
+
+def is_wordnet_word(word):
+    # Check if a word is in WordNet
+    return len(wordnet.synsets(word)) > 0
+
+def clean_sent_advanced(sent):
+    # Tokenize and apply filters
+    words = nltk.wordpunct_tokenize(sent)
+    filtered_words = [w for w in words if (is_wordnet_word(w.lower()) or not w.isalpha()) and len(w) < 15]
+    return " ".join(filtered_words)
