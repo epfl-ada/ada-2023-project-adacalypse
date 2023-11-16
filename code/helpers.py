@@ -107,12 +107,12 @@ def date_to_float(dataset, column_name):
     dataset[column_name] = dataset[column_name].str[0:4].astype(float)
     return dataset
 
-def parse_as_year(dataset, column_name):
+def parse_as_date(dataset, column_name):
     """
     Takes a dataset and its column name corresponding to a date as input, and returns the same dataset with its year converted to a pandas DateTime
     Example : movie_metadata = date_to_int(movie_metadata, 'movie_release_date')
     """
-    dataset[column_name] = pd.to_datetime(dataset[column_name].str[0:4], format='mixed', errors='coerce')
+    dataset[column_name] = pd.to_datetime(dataset[column_name], errors='coerce')
     return dataset
 
 def bin_into_decades(df, column):
@@ -128,7 +128,7 @@ def bin_into_decades(df, column):
     df_copy = df.copy()
 
     # Try to parse column data as timestamps.
-    df_copy[column] = pd.to_datetime(df_copy[column], format='mixed', errors='coerce')
+    df_copy[column] = pd.to_datetime(df_copy[column], errors='coerce')
 
     # Compute decade bounds and bins
     start = str(df_copy[column].min().year // 10 * 10)
