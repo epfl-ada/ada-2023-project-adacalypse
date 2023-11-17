@@ -288,7 +288,7 @@ def is_wordnet_word(word):
     return len(wordnet.synsets(word)) > 0
 
 def clean_sent_advanced(sent):
-    # Tokenize and apply filters
+    # Tokenize and apply filters to remove words that do not make sense 
     words = nltk.wordpunct_tokenize(sent)
     filtered_words = [w for w in words if (is_wordnet_word(w.lower()) or not w.isalpha()) and len(w) < 15]
     return " ".join(filtered_words)
