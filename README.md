@@ -3,7 +3,7 @@
 
 
 ### Abstract
-Cinema is a form of art that has blossomed in the 20th century and has nowadays become a major medium and a reflection of our society and values. In this project, we are interested in exploring and analyzing how technological evolution shaped the movie industry. This evolution can be characterized by events such as the inclusion of sound and color, the invention and use of atomic bombs, the space race and moon landing, and the rise of the internet and social media. We believe that we should observe a two-fold impact of technology on our dataset: one is on the technology used to produce the movies in itself, thus impacting actor careers and film genres; the other is technology itself as a narrative theme appearing in plot summaries. We seek to measure, through a statistical and data-centered lens, this cultural evolution. Alternatives ideas: 
+Cinema is a form of art that has blossomed in the 20th century and has nowadays become a major medium and a reflection of our society and values. In this project, we are interested in exploring and analyzing how technological evolution shaped the movie industry. This evolution can be characterized by events such as the inclusion of sound and color, the invention and use of atomic bombs, the space race and moon landing, and the rise of the internet and social media. We believe that we should observe a two-fold impact of technology on our dataset: one is on the technology used to produce the movies in itself, thus impacting actor careers and film genres; the other is technology itself as a narrative theme appearing in plot summaries. We seek to measure, through a statistical and data-centered lens, this cultural evolution.
 
 
 ### Research questions 
@@ -23,13 +23,13 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 
 ### Methods
 - **Lost movies:** Time and country trend visualization. We find the concerned actors and evaluate their careers.
-- **Introduction of sound and color:** Visualization of decrease in silent (and similarly black-and-white) films across years, as well as of the difference in number of movies of concerned actors in silent and non-silent films. Death and retirement will be taken into account as confounders.  
+- **Introduction of sound and color:** Visualization of decrease in silent (and similarly black-and-white) films across years, as well as the difference in number of movies of concerned actors in silent and non-silent films. Death and retirement will be taken into account as confounders.  
 - **Historical events parallelisation:** We measure the Maximum Information Coefficient between technology adoption in the HCCTA dataset and term frequency in the plot summaries every year to see how closely narrative trends follow technological trends. Then we perform the same analysis grouped by film genre. We seek out the most influential movies by finding the earliest and highest-revenue movie whose plot contains a technological keyword. Finally, we employ Autophrase to extract keyphrases with high term-frequency inverse-document-frequency TF-IDF score per decade, and visualize the results with word-clouds.
     - **MIC(X,Y):** The mutual information (expected KL-divergence between joint distribution and product of marginal distributions) scaled down by the minimum number of bins used for discretization.
     - **TF-IDF:** The product of term-frequency (count) and log-inverse document frequency (proportion of documents in which a term appears).
 - **Sentiment analysis:**
-    - **Tech in real life:** TextBlob and Vader are used for sentiment analysis on reviews about technology. Keyword identification will be done with the help of OpenAI API. To analyze general opinion change on old movies, we take advantage of the review_type of RottenTomates (rotten or fresh).
-    - **Tech in movies:** For this we need to identify which movies are tech-related. We start by filtering the genres. We also group together all words present in all summaries (after preprocessing) and we use OpenAi API to identify which words are tech-related with 2 consecutives prompts. This corpus of tech-related words are used as a count metric to identify how many tech-related words each plot summary has. This metric helps filtering movies where technology elements are not present enough for a sentiment analysis. 
+    - **Tech in real life:** TextBlob and Vader are used for sentiment analysis on reviews about techn-related films. Keyword identification will be done with the help of OpenAI API. To analyze general opinion change on old movies, we take advantage of the review_type of RottenTomates (rotten or fresh).
+    - **Tech in movies:** For this we need to identify which movies are tech-related. We start by filtering the genres. We also group together all words present in all summaries (after preprocessing) and we use OpenAi API (text-davinci-003 model) to identify which words are tech-related with 2 consecutives prompts. This corpus of tech-related words are used as a count metric to identify how many tech-related words each plot summary has. This metric helps filtering movies where technology elements are not present enough for a sentiment analysis. 
 
 
 ### Proposed additional datasets
@@ -44,7 +44,7 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 ### Proposed timeline 
 We modularised and ordered the different tasks in time to enable a flexible and efficient organization. The modules are the following:
 1. Further Analysis of Data
-    - Sentiment analysis of summaries of movies related to technologyof reviews of movies related to technology
+    - Sentiment analysis of movie summaries related to technology of reviews of movies related to technology
     - Extract phrases using Autophrase in order to make word clouds related to technology 
     - Historical event parallelization 
         - Choice of relevant keywords (see results of b)
