@@ -117,7 +117,7 @@ def parse_as_date(dataset, column_name):
     Takes a dataset and its column name corresponding to a date as input, and returns the same dataset with its year converted to a pandas DateTime
     Example : movie_metadata = date_to_int(movie_metadata, 'movie_release_date')
     """
-    dataset[column_name] = pd.to_datetime(dataset[column_name], errors='coerce')
+    dataset[column_name] = pd.to_datetime(dataset[column_name], format='mixed', errors='coerce')
     return dataset
 
 def bin_into_decades(df, column):
