@@ -16,7 +16,7 @@ def release_by_genre(data, genre='Silent film'):
     return genre_films, genre_films_by_year
 
 
-def plot_release_by_genre(genre_films_by_year, genre = 'Silent film'):
+def plot_release_by_genre(genre_films_by_year, genre = 'Silent'):
     fig, ax1 = plt.subplots()
 
     color = 'tab:red'
@@ -32,7 +32,7 @@ def plot_release_by_genre(genre_films_by_year, genre = 'Silent film'):
     ax2 = ax1.twinx()
     color = 'tab:blue'
     ax2.plot(genre_films_by_year.index, genre_films_by_year.frequency/genre_films_by_year.total_nb_films, ls = '-.', color = color)
-    ax2.set_ylabel('proportion of silent movies released', color = color)
+    ax2.set_ylabel('proportion of {} movies released'.format(genre), color = color)
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.set_yticks(ticks = np.arange(0, 1.2, 0.2), labels = [str(int(p*100))+'%' for p in np.arange(0, 1.2, 0.2)])
 
