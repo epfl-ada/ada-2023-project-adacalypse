@@ -17,6 +17,7 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 
 ### Alternatives ideas
 **Themes:** War and Feminism were also considered as alternative thematics, as they both have a great narrative and real impact on the movie industry. 
+
 **Research question:** Explore narrative around technology: is it seen as good for humanity, bad, or somewhere in-between. For this moral analysis we could use eMFDscore on related movies. 
 
 
