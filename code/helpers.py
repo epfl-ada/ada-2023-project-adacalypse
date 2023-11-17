@@ -52,7 +52,8 @@ def load_data_with_columns(folder, filename):
                 'movie.metadata.tsv',
                 'name.clusters.txt',
                 'tvtropes.clusters.txt',
-                'plot_summaries.txt'] 
+                'plot_summaries.txt',
+                all_lost_films.csv] 
     """
 
     # Load table of column names 
@@ -63,7 +64,11 @@ def load_data_with_columns(folder, filename):
     converters = {'data': lambda x: list(json.loads(x).values())} if filename == 'tvtropes.clusters.txt' else None
 
     # Load data with column names
-    data = pd.read_table(folder + filename, names = list(names[names['filename']==filename]['columns'])[0], converters=converters)
+    if filename != 'all_lost_films.csv':
+        data = pd.read_table(folder + filename, names = list(names[names['filename']==filename]['columns'])[0], converters=converters) 
+    else:
+        data = pd.read_csv(folder + filename)
+        
     
     # Preprocess columns from json to list
     if filename == 'movie.metadata.tsv':
