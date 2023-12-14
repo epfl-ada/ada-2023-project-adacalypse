@@ -5,6 +5,7 @@ import regex as re
 import ast  # Evaluate the literal syntax tree of a string
 import requests
 import nltk
+import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
@@ -266,3 +267,22 @@ def clean_sent_advanced(sent):
     words = nltk.wordpunct_tokenize(sent)
     filtered_words = [w for w in words if (is_wordnet_word(w.lower()) or not w.isalpha()) and len(w) < 15]
     return " ".join(filtered_words)
+
+
+
+def plot_tech_evolution(df, tech_word):
+    """
+    Plots the evolution of a technology over the years. 
+    PARAMETERS:
+        - df: hccta dataframe
+        - tech_word (str): Technology taht is contained in the hccta dataset
+    """
+    countries = df.columns[2:]
+    data = df[df['Variable'] == tech_word]
+
+    by_year = data[countries].apply(lambda x: x.mean(axis = 0), axis = 1)
+
+    plt.plot(data['Year'].values, by_year)
+    plt.title('Evolution of {} over the years'.format(tech_word))
+    plt.xlabel('Year')
+    plt.show()
