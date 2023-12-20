@@ -268,6 +268,12 @@ def clean_sent_advanced(sent):
     return " ".join(filtered_words)
 
 
+def get_synonyms(word):
+    """
+        Returns a list of synonyms of a word.
+    """
+    return [lemma.name() for syn in wordnet.synsets(word) for lemma in syn.lemmas()]
+
 def percentage_count_words_per_year(df, keyword):
     """
         Computes the percentage and number of movies per year that
