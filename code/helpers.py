@@ -239,7 +239,6 @@ def preprocess(text):
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word not in stop_words]
    
-    
     # Lemmatization
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
@@ -268,6 +267,31 @@ def clean_sent_advanced(sent):
     filtered_words = [w for w in words if (is_wordnet_word(w.lower()) or not w.isalpha()) and len(w) < 15]
     return " ".join(filtered_words)
 
+
+def percentage_count_words_per_year(df, keyword):
+    """
+        Computes the percentage and number of movies per year that
+        contain the given keyword or its synonmys.
+
+        The dataframe must have columns 'plot', 'movie_release_date' and 'movie_wikipedia_id'
+    """
+
+    # Define a list of related keywords
+    synonyms = get_synonyms(keyword)
+
+    # Select movies with at least one of the previous keywords
+    has_keyword = df['plot'].apply(lambda x : False if pd.isna(x) else any([word for word in synonyms if word in x]))
+
+    # Count up the number of such movies per year
+    movie_count_per_year = df[has_keyword].groupby('movie_release_date')['movie_wikipedia_id'].count()
+
+    # Count up number of movies per year
+    movies_per_year = df.groupby('movie_release_date')['movie_wikipedia_id'].count()
+
+    # Compute percentage
+    percentage_word_movies_per_year = movie_count_per_year / movies_per_year
+
+    return percentage_word_movies_per_year, movie_count_per_year
 
 
 def plot_tech_evolution(df, tech_word):
