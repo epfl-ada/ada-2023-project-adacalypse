@@ -67,7 +67,7 @@ actor career arc analysis, interactive plots on website and interpretation of se
   </tr>
   <tr>
     <td class="tg-0lax">Orfeas:</td>
-    <td class="tg-0lax"> (1) Loading and initial pre-processing of the data (2) Missing and duplicate plot summary analysis <br> (3) Keyphrase extraction and TF-IDF scoring <br> (4) Visualisation of tech-event correlation </td>
+    <td class="tg-0lax"> (1) Loading and initial pre-processing of the data <br> (2) Missing and duplicate plot summary analysis <br> (3) Keyphrase extraction and TF-IDF scoring <br> (4) Visualisation of tech-event correlation </td>
   </tr>
   <tr>
     <td class="tg-0lax">Oscar </td>
