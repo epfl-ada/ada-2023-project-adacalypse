@@ -5,6 +5,7 @@ import regex as re
 import ast  # Evaluate the literal syntax tree of a string
 import requests
 import nltk
+import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
@@ -90,40 +91,24 @@ def load_data_with_columns(folder, filename):
 
     return data
 
-def extract_year(date):
-    """
-    Takes a date as an input, verifies if it is a string,
-    searches for a character of length 4 digits and finally returns
-    it as an integer.
-    Example of usage: movies_df['movie_release_date'] = movies_df['movie_release_date'].apply(extract_year)
-                      movies_df['movie_release_date'] = movies_df['movie_release_date'].fillna(0).astype(int)
-    """
-    if isinstance(date, str):
-        match = re.search(r'(\d{4})', date)
-        if match:
-            return int(match.group(0))
-    return None
-
 def date_to_float(dataset, column_name):
     """
-    Takes a dataset and its column name corresponding to a date as input, and returns the same dataset with its year converted to float
-    Example : movie_metadata = date_to_int(movie_metadata, 'movie_release_date')
+    Inplace. Takes a dataset and a date-valued column name as input, and converts its year to float.
+    NaN values are conserved.
+    Example : movie_metadata = date_to_float(movie_metadata, 'movie_release_date')
     """
     dataset[column_name] = dataset[column_name].str[0:4].astype(float)
     return dataset
 
-def parse_as_date(dataset, column_name):
+def round_down(m, n):
     """
-    Takes a dataset and its column name corresponding to a date as input, and returns the same dataset with its year converted to a pandas DateTime
-    Example : movie_metadata = date_to_int(movie_metadata, 'movie_release_date')
+    Rounds down m to a multiple of n.
     """
-    dataset[column_name] = pd.to_datetime(dataset[column_name], format='mixed', errors='coerce')
-    return dataset
+    return m - (m % n)
 
 def bin_into_decades(df, column):
     """
-        Takes a DataFrame with a date-valued column and appends a 'decade' column.
-        May yield NaTs if the column data cannot be parsed.
+        Takes a DataFrame with a column representing years (float) and appends a 'decade' column.
 
         Parameters:
             (DataFrame) df: a frame with a date-valued column
@@ -132,16 +117,8 @@ def bin_into_decades(df, column):
     # Copy the original dataframe
     df_copy = df.copy()
 
-    # Try to parse column data as timestamps.
-    df_copy[column] = pd.to_datetime(df_copy[column], errors='coerce')
-
-    # Compute decade bounds and bins
-    start = str(df_copy[column].min().year // 10 * 10)
-    end = str((df_copy[column].max().year // 10 + 1) * 10)
-    decades = pd.date_range(start=start, end=end, freq='10YS', inclusive='both')
-
     # Append 'decade' column
-    df_copy['decade'] = pd.cut(df_copy[column], bins=decades, labels=decades[:-1], include_lowest=True)
+    df_copy[column+'_decade'] = df_copy[column].apply(lambda x : round_down(x, 10))
 
     return df_copy
 
@@ -158,13 +135,11 @@ def percent_nans(arr):
     
 def duplicate_singleton(arr):
     """
-        Duplicates a singleton list.
+        Duplicates a singleton list or pandas Series
     """
-        
     if len(arr) == 1:
         if type(arr)==pd.Series:
-            arr[1]=arr[0]
-            return arr
+            return pd.concat([arr, arr])
         else: 
             return 2*arr
     else:
@@ -264,7 +239,6 @@ def preprocess(text):
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word not in stop_words]
    
-    
     # Lemmatization
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
@@ -292,3 +266,53 @@ def clean_sent_advanced(sent):
     words = nltk.wordpunct_tokenize(sent)
     filtered_words = [w for w in words if (is_wordnet_word(w.lower()) or not w.isalpha()) and len(w) < 15]
     return " ".join(filtered_words)
+
+
+def get_synonyms(word):
+    """
+        Returns a list of synonyms of a word.
+    """
+    return [lemma.name() for syn in wordnet.synsets(word) for lemma in syn.lemmas()]
+
+def percentage_count_words_per_year(df, keyword):
+    """
+        Computes the percentage and number of movies per year that
+        contain the given keyword or its synonmys.
+
+        The dataframe must have columns 'plot', 'movie_release_date' and 'movie_wikipedia_id'
+    """
+
+    # Define a list of related keywords
+    synonyms = [word.replace('_', ' ') for word in get_synonyms('computer')]
+
+    # Select movies with at least one of the previous keywords
+    has_keyword = df['plot'].apply(lambda x : False if pd.isna(x) else any([word for word in synonyms if word in x]))
+
+    # Count up the number of such movies per year
+    movie_count_per_year = df[has_keyword].groupby('movie_release_date')['movie_wikipedia_id'].count()
+
+    # Count up number of movies per year
+    movies_per_year = df.groupby('movie_release_date')['movie_wikipedia_id'].count()
+
+    # Compute percentage
+    percentage_word_movies_per_year = movie_count_per_year / movies_per_year
+
+    return percentage_word_movies_per_year, movie_count_per_year
+
+
+def plot_tech_evolution(df, tech_word):
+    """
+    Plots the evolution of a technology over the years. 
+    PARAMETERS:
+        - df: hccta dataframe
+        - tech_word (str): Technology taht is contained in the hccta dataset
+    """
+    countries = df.columns[2:]
+    data = df[df['Variable'] == tech_word]
+
+    by_year = data[countries].apply(lambda x: x.mean(axis = 0), axis = 1)
+
+    plt.plot(data['Year'].values, by_year)
+    plt.title('Evolution of {} over the years'.format(tech_word))
+    plt.xlabel('Year')
+    plt.show()

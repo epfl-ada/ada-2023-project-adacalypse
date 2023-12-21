@@ -18,8 +18,12 @@ def release_by_genre(data, genre='Silent film'):
                                 and 'total_nb_films' (total number of movies relased that year)
     '''
 
-    #subset: only films belonging to the genre
-    genre_films = data[data['genres'].apply(lambda x: np.isin(genre, x))]
+    if (genre == 'remake'):
+        #subset: only films belonging to remakes
+        genre_films = data[data['remake']== 1]
+    else :
+        #subset: only films belonging to the genre
+        genre_films = data[data['genres'].apply(lambda x: np.isin(genre, x))]
 
     #group dataset by year and compute total number of movies released that year
     films_by_year = data[data['movie_release_date'].isin(genre_films['movie_release_date'])].groupby(by = 'movie_release_date').apply(lambda x: pd.Series({'total_nb_films': x['movie_wikipedia_id'].count()}))
