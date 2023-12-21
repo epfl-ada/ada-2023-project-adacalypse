@@ -8,6 +8,7 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 
 ### Research questions 
 - **Lost movies:** Lost films are movies of which there is no surviving print. We want to study how the digitalization of films has reduced the amount of lost films. Were some actors completely forgotten after the loss of the film they starred in? 
+- **Remakes:** Which stories are so popular that they were remade over and over with the help of new technologies and opportunities
 - **Introduction of sound and color:** To what degree did the introduction of sound and color change the relevance of actors? Were some silent-era actors pushed out of the medium due to new challenges of speaking lines? How fast was the transition from silent to sound, from monochrome to color, and why? 
 - **Historical events parallelisation:** We seek time-wise correlation between historical technological advances and related films. Which movies and time periods were particularly influential? What are some of the main technological themes per each decade?
 - **Sentiment analysis:** 
@@ -15,15 +16,9 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
     - **Tech in movies:** In the second part, we want to investigate the sentiment on technology related elements present in the movie.
 
 
-### Alternatives ideas
-**Themes:** War and Feminism were also considered as alternative thematics, as they both have a great narrative and real impact on the movie industry. 
-
-**Research question:** Explore narrative around technology: is it seen as good for humanity, bad, or somewhere in-between. For this moral analysis we could use eMFDscore on related movies. 
-
-
 ### Methods
-- **Lost movies:** Time and country trend visualization. We find the concerned actors and evaluate their careers.
-- **Introduction of sound and color:** Visualization of decrease in silent (and similarly black-and-white) films across years, as well as the difference in number of movies of concerned actors in silent and non-silent films. Death and retirement will be taken into account as confounders.  
+- **Lost movies:** Time trend visualization. We find the concerned actors and evaluate their careers.
+- **Introduction of sound and color:** Visualization of decrease in silent (and similarly black-and-white) films across years, as well as the difference in number of movies of concerned actors in silent and non-silent films. Death and retirement are taken into account as confounders.  
 - **Historical events parallelisation:** We measure the Maximum Information Coefficient between technology adoption in the HCCTA dataset and term frequency in the plot summaries every year to see how closely narrative trends follow technological trends. Then we perform the same analysis grouped by film genre. We seek out the most influential movies by finding the earliest and highest-revenue movie whose plot contains a technological keyword. Finally, we employ Autophrase to extract keyphrases with high term-frequency inverse-document-frequency TF-IDF score per decade, and visualize the results with word-clouds.
     - **MIC(X,Y):** The mutual information (expected KL-divergence between joint distribution and product of marginal distributions) scaled down by the minimum number of bins used for discretization.
     - **TF-IDF:** The product of term-frequency (count) and log-inverse document frequency (proportion of documents in which a term appears).
@@ -41,25 +36,43 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 - **[BoxOfficeMojo](https://www.boxofficemojo.com/):** Complete the box office information
 
 
-### Proposed timeline 
-We modularised and ordered the different tasks in time to enable a flexible and efficient organization. The modules are the following:
-1. Further Analysis of Data
-    - Sentiment analysis of movie summaries related to technology of reviews of movies related to technology
-    - Extract phrases using Autophrase in order to make word clouds related to technology 
-    - Historical event parallelization 
-        - Choice of relevant keywords (see results of b)
-        - Find mutual information/maximum information coefficient between technology events and keywords related to these event in the plot summaries
-    - Lost Movies Analysis
-        - Lost actors: find the old forgotten pop stars
-        - Identify the most popular remakes
-    - Remakes: identify how movies were remade as time and technology develops
-2. Website
-    - Narrative
-    - Structure
-        - Text
-        - Visualisation
-3. Code fusion and cleaning
-4. README writing
+### Organization within team
+Work was highly collaborative (and effective!), so it is difficult to exactly attribute the different merits, but here is an approximation of the task distribution:
 
+actor career arc analysis, interactive plots on website and interpretation of sentiment analysis with amine
 
+<table class="tg" style="table-layout: fixed; width: 342px">
+<colgroup>
+<col style="width: 16px">
+<col style="width: 180px">
+</colgroup>
+<thead>
+  <tr>
+    <th class="tg-0lax">Teammate</th>
+    <th class="tg-0lax">Contributions</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Amine </td>
+    <td class="tg-0lax"> (1) Web scraping to recover missing information <br> (2) API prompting for... <br> (3) Sentiment analysis <br> (4) ...  </td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Lena </td>
+    <td class="tg-0lax"> (1) Lost movie, Chaplin and remake analysis <br> (2) Web site creation <br> (3) Elaboration and pre-writing of datastory for the website </td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Olivia</td>
+    <td class="tg-0lax"> (1) Silent and sound analysis <br> (2) Actor career "survival" analysis <br> (3) Interactive plot expert <br> (4) Help for the interpretation of sentiment analysis </td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Orfeas:</td>
+    <td class="tg-0lax"> (1) Loading and initial pre-processing of the data (2) Missing and duplicate plot summary analysis <br> (3) Keyphrase extraction and TF-IDF scoring <br> (4) Visualisation of tech-event correlation </td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Oscar </td>
+    <td class="tg-0lax"> (1) Technology related keyword search <br> (2) Technology event search <br> (3) Parallelization analysis of tech-event and their reflection in movies </td>
+  </tr>  
+</tbody>
+</table>
 
