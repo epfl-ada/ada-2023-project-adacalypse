@@ -283,7 +283,7 @@ def percentage_count_words_per_year(df, keyword):
     """
 
     # Define a list of related keywords
-    synonyms = [word.replace('_', ' ') for word in get_synonyms('computer')]
+    synonyms = [word.replace('_', ' ') for word in get_synonyms(keyword)]
 
     # Select movies with at least one of the previous keywords
     has_keyword = df['plot'].apply(lambda x : False if pd.isna(x) else any([word for word in synonyms if word in x]))
