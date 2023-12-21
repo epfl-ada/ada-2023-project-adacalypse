@@ -44,7 +44,7 @@ def plot_release_by_genre(genre_films_by_year, genre = 'Silent'):
     fig, ax1 = plt.subplots()
 
     color = 'tab:red'
-    ax1.plot(genre_films_by_year.index, genre_films_by_year.frequency, color = color)
+    ax1.plot(genre_films_by_year.index.values, genre_films_by_year.frequency.values, color = color)
     ax1.set_xlabel('Release year')
     ax1.set_ylabel('number of movies released', color = color)
     ax1.tick_params(axis='y', labelcolor=color)
@@ -55,12 +55,14 @@ def plot_release_by_genre(genre_films_by_year, genre = 'Silent'):
 
     ax2 = ax1.twinx()
     color = 'tab:blue'
-    ax2.plot(genre_films_by_year.index, genre_films_by_year.frequency/genre_films_by_year.total_nb_films, ls = '-.', color = color)
+    ax2.plot(genre_films_by_year.index.values, genre_films_by_year.frequency.values/genre_films_by_year.total_nb_films.values, ls = '-.', color = color)
     ax2.set_ylabel('proportion of {} movies released'.format(genre), color = color)
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.set_yticks(ticks = np.arange(0, 1.2, 0.2), labels = [str(int(p*100))+'%' for p in np.arange(0, 1.2, 0.2)])
 
     plt.show()
+
+
 
 
 def select_non_genre(genre, total):
