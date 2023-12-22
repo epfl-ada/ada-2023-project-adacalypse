@@ -1,6 +1,11 @@
 # ada-2023-project-adacalypse
-## Modern Times: Rise of Technology in Cinema
 
+## Repository organisation
+
+📁 Code contains our main python notebook **P3_notebook.ipynb** as well as python code files with auxiliary or reusable logic.
+📁 Data contains primary data sources as well as intermediate results. 
+
+## Modern Times: Rise of Technology in Cinema
 
 ### Abstract
 Cinema is a form of art that has blossomed in the 20th century and has nowadays become a major medium and a reflection of our society and values. In this project, we are interested in exploring and analyzing how technological evolution shaped the movie industry. This evolution can be characterized by events such as the inclusion of sound and color, the invention and use of atomic bombs, the space race and moon landing, and the rise of the internet and social media. We believe that we should observe a two-fold impact of technology on our dataset: one is on the technology used to produce the movies in itself, thus impacting actor careers and film genres; the other is technology itself as a narrative theme appearing in plot summaries. We seek to measure, through a statistical and data-centered lens, this cultural evolution.
@@ -37,9 +42,7 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 
 
 ### Organization within team
-Work was highly collaborative (and effective!), so it is difficult to exactly attribute the different merits, but here is an approximation of the task distribution:
-
-actor career arc analysis, interactive plots on website and interpretation of sentiment analysis with amine
+Work was highly collaborative (and effective!), so it is difficult to exactly attribute work to specific individuals, but here is an approximation of the task distribution:
 
 <table class="tg" style="table-layout: fixed; width: 342px">
 <colgroup>
@@ -55,7 +58,7 @@ actor career arc analysis, interactive plots on website and interpretation of se
 <tbody>
   <tr>
     <td class="tg-0lax">Amine </td>
-    <td class="tg-0lax"> (1) Web scraping to recover missing information <br> (2) API prompting for... <br> (3) Sentiment analysis <br> (4) ...  </td>
+    <td class="tg-0lax"> (1) Web scraping to recover missing information <br> (2) Plot summaries preprocessing  <br> (3) ChatGPT API prompting for tech-word identification <br> (4) Targeted Sentiment analysis implementation and interpretation for reviews and plot summaries  </td>
   </tr>
   <tr>
     <td class="tg-0lax">Lena </td>
@@ -67,7 +70,7 @@ actor career arc analysis, interactive plots on website and interpretation of se
   </tr>
   <tr>
     <td class="tg-0lax">Orfeas:</td>
-    <td class="tg-0lax"> (1) Loading and initial pre-processing of the data <br> (2) Missing and duplicate plot summary analysis <br> (3) Keyphrase extraction and TF-IDF scoring <br> (4) Visualisation of tech-event correlation </td>
+    <td class="tg-0lax"> (1) Loading and initial pre-processing of the data <br> (2) Missing and duplicate plot summary analysis <br> (3) Keyphrase extraction and TF-IDF scoring <br> (4) Geographical visualisation of tech-event correlation </td>
   </tr>
   <tr>
     <td class="tg-0lax">Oscar </td>
