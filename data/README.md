@@ -36,4 +36,4 @@ This README describes the primary data sources 📜, intermediary data 🧻, and
 
 + ❌ *tvtropes.clusters.txt* character archetypes, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
 
-+ 📜 *wikidata_freebase_imdb.tsv* used for data augmentation, a mapping between Wikidata, Freebase, and IMDb Ids, queried from [Wikidata Query Service](https://query.wikidata.org/) by [Linkai Dai](https://people.epfl.ch/linkai.dai)
++ ❌ *wikidata_freebase_imdb.tsv* used for rating analysis, a mapping between Wikidata, Freebase, and IMDb Ids, queried from [Wikidata Query Service](https://query.wikidata.org/) by [Linkai Dai](https://people.epfl.ch/linkai.dai)
