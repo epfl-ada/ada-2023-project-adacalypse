@@ -8,7 +8,7 @@
 
 ## Modern Times: Rise of Technology in Cinema
 
-Find our website here : [https://adacalypse.github.io/modern-times-ADA/](https://link-url-here.org](https://adacalypse.github.io/modern-times-ADA/)
+Find our website here : [https://adacalypse.github.io/modern-times-ADA/](https://adacalypse.github.io/modern-times-ADA/)
 
 ### Abstract
 Cinema is a form of art that has blossomed in the 20th century and has nowadays become a major medium and a reflection of our society and values. In this project, we are interested in exploring and analyzing how technological evolution shaped the movie industry. This evolution can be characterized by events such as the invention of sound and color film, nuclear power, various modes of transport, the space race, computers, and the rise of the internet. We believe that we should observe a two-fold impact of technology on our dataset: one is on the technology used to produce the movies in itself, thus impacting actor careers, film genres, and popular opinion; the other is technology itself as a narrative theme appearing in plot summaries. We seek to measure, through a statistical and data-centered lens, this cultural evolution.
