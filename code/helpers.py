@@ -4,8 +4,9 @@ import numpy as np
 import regex as re
 import ast  # Evaluate the literal syntax tree of a string
 import requests
-import nltk
 import matplotlib.pyplot as plt
+import nltk
+from collections import Counter, defaultdict
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
@@ -91,6 +92,38 @@ def load_data_with_columns(folder, filename):
 
     return data
 
+def get_synonyms(word):
+    """
+        Returns a list of synonyms of a word.
+    """
+    return [lemma.name() for syn in wordnet.synsets(word) for lemma in syn.lemmas()]
+
+
+def percentage_count_words_per_year(df, keyword):
+    """
+        Computes the percentage and number of movies per year that
+        contain the given keyword or its synonmys.
+        The dataframe must have columns 'plot', 'movie_release_date' and 'movie_wikipedia_id'
+    """
+
+    # Define a list of related keywords
+    synonyms = [word.replace('_', ' ') for word in get_synonyms(keyword)]
+
+    # Select movies with at least one of the previous keywords
+    has_keyword = df['plot'].apply(lambda x : False if pd.isna(x) else any([word for word in synonyms if word in x]))
+
+    # Count up the number of such movies per year
+    movie_count_per_year = df[has_keyword].groupby('movie_release_date')['movie_wikipedia_id'].count()
+
+    # Count up number of movies per year
+    movies_per_year = df.groupby('movie_release_date')['movie_wikipedia_id'].count()
+
+    # Compute percentage
+    percentage_word_movies_per_year = movie_count_per_year / movies_per_year
+
+    return percentage_word_movies_per_year, movie_count_per_year
+
+
 def date_to_float(dataset, column_name):
     """
     Inplace. Takes a dataset and a date-valued column name as input, and converts its year to float.
@@ -144,6 +177,23 @@ def duplicate_singleton(arr):
             return 2*arr
     else:
         return arr
+    
+def plot_tech_evolution(df, tech_word):
+    """
+    Plots the evolution of a technology over the years. 
+    PARAMETERS:
+        - df: hccta dataframe
+        - tech_word (str): Technology taht is contained in the hccta dataset
+    """
+    countries = df.columns[2:]
+    data = df[df['Variable'] == tech_word]
+
+    by_year = data[countries].apply(lambda x: x.mean(axis = 0), axis = 1)
+
+    plt.plot(data['Year'].values, by_year)
+    plt.title('Evolution of {} over the years'.format(tech_word))
+    plt.xlabel('Year')
+    plt.show()
 
 
 def plot_with_confidence(data, column, label, axis):
@@ -239,6 +289,7 @@ def preprocess(text):
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word not in stop_words]
    
+    
     # Lemmatization
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
@@ -267,52 +318,71 @@ def clean_sent_advanced(sent):
     filtered_words = [w for w in words if (is_wordnet_word(w.lower()) or not w.isalpha()) and len(w) < 15]
     return " ".join(filtered_words)
 
+# Function to clean and lowercase movie titles
+def clean_title(title):
+    if isinstance(title, str):
+        return re.sub(r'[^a-z0-9]', '', title.lower())
+    else:
+        # If the title is not a string, return an empty string or handle as needed
+        return ''
 
-def get_synonyms(word):
+# Function to create a combined key of cleaned title and release date
+def create_combined_key(title, date):
+    cleaned_title = clean_title(title)
+    return f"{cleaned_title}_{date}"
+
+def find_techniques(text, techniques):
     """
-        Returns a list of synonyms of a word.
+    Function to find listed techniques in a given review.
+
+    Args:
+    text (str): The text to search for techniques.
+    techniques (list): A list of techniques to search for in the text.
+
+    Returns:
+    list: A list of techniques found in the text.
     """
-    return [lemma.name() for syn in wordnet.synsets(word) for lemma in syn.lemmas()]
+    return [technique for technique in techniques if technique in text.lower()]
 
-def percentage_count_words_per_year(df, keyword):
-    """
-        Computes the percentage and number of movies per year that
-        contain the given keyword or its synonmys.
+def count_matches(word_tokens, tech_nouns):
+    # Count the matching words in two lists
+    return sum(word in tech_nouns for word in word_tokens)
 
-        The dataframe must have columns 'plot', 'movie_release_date' and 'movie_wikipedia_id'
-    """
+def get_matches(word_tokens, tech_nouns):
+    # get the matching words in two lists
+    matched = []
+    for word in tech_nouns:
+        if word in word_tokens:
+            matched.append(word)
+    return matched
 
-    # Define a list of related keywords
-    synonyms = [word.replace('_', ' ') for word in get_synonyms(keyword)]
+def most_frequent_tech_noun(word_tokens, tech_nouns):
+    # Filter the tokens to keep only tech nouns
+    tech_tokens = [word for word in word_tokens if word in tech_nouns]
+    
+    # Count the frequency of each tech noun
+    freq_count = Counter(tech_tokens)
+    
+    # Find the most common tech noun (returns a list of tuples, take the first one)
+    most_common = freq_count.most_common(1)
+    
+    # Return the most common tech noun or None if there are none
+    return most_common[0][0] if most_common else None
 
-    # Select movies with at least one of the previous keywords
-    has_keyword = df['plot'].apply(lambda x : False if pd.isna(x) else any([word for word in synonyms if word in x]))
-
-    # Count up the number of such movies per year
-    movie_count_per_year = df[has_keyword].groupby('movie_release_date')['movie_wikipedia_id'].count()
-
-    # Count up number of movies per year
-    movies_per_year = df.groupby('movie_release_date')['movie_wikipedia_id'].count()
-
-    # Compute percentage
-    percentage_word_movies_per_year = movie_count_per_year / movies_per_year
-
-    return percentage_word_movies_per_year, movie_count_per_year
-
-
-def plot_tech_evolution(df, tech_word):
-    """
-    Plots the evolution of a technology over the years. 
-    PARAMETERS:
-        - df: hccta dataframe
-        - tech_word (str): Technology taht is contained in the hccta dataset
-    """
-    countries = df.columns[2:]
-    data = df[df['Variable'] == tech_word]
-
-    by_year = data[countries].apply(lambda x: x.mean(axis = 0), axis = 1)
-
-    plt.plot(data['Year'].values, by_year)
-    plt.title('Evolution of {} over the years'.format(tech_word))
-    plt.xlabel('Year')
-    plt.show()
+# Function to convert string representation of a list to an actual list of floats and then calculate the mean
+def calculate_mean_from_string_list(string_list):
+    try:
+        # Convert string to list
+        numeric_list = ast.literal_eval(string_list)
+        # Calculate and return mean
+        return np.mean(numeric_list)
+    except:
+        # Return None or some default value in case of error
+        return None
+    
+# Function to clean and parse words and scores
+def clean_and_parse(row):
+    # Using regular expressions to clean the word strings
+    words = re.findall(r"[\w']+", row['tech_nouns_used'])
+    scores = [float(score) for score in row['tech_nouns_scores'].strip('[]').split(', ')]
+    return list(zip(words, scores))
