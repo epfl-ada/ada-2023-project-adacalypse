@@ -2,8 +2,9 @@
 
 ## Repository organisation
 
-📁 Code contains our main python notebook **P3_notebook.ipynb** as well as python code files with auxiliary or reusable logic.
-📁 Data contains primary data sources as well as intermediate results. 
+📁 *code* contains our main python notebook **P3_notebook.ipynb** as well as python code files with auxiliary or reusable logic.
+
+📁 *data* contains primary data sources as well as intermediate results. 
 
 ## Modern Times: Rise of Technology in Cinema
 
