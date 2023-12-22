@@ -1,83 +1,22 @@
 # Datasets
 
-This README describes the primary data sources 📜 and intermediary data 🧻 we used for the project, in alphabetical order.
+This README describes the primary data sources 📜, intermediary data 🧻, and data we did not end up using ❌ for the project, in alphabetical order.
 
 + 📜 *all_lost_films.csv* for lost film analysis, downloaded from [List of Lost Films, Wikipedia](https://en.wikipedia.org/wiki/List_of_lost_films)
-+ 📜 *character_metadata.csv* for character analysis, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
++ 📜 *character_metadata.csv* for actor career analysis, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
 + 🧻 *column_names.txt* a list of pandas DataFrame columns names to associate with features the CMU Movie Summary Corpus
-+ 📜 *country_shape_data* for geographical data, used generate country plots from [Natural Earth](https://www.naturalearthdata.com/)
++ 📁/📜 *country_shape_data* used to generate country plots from [Natural Earth](https://www.naturalearthdata.com/)
 + 📜 *hccta.txt* for historical correlation analysis, from the [Historical Cross Country Technology Adoption Dataset](https://www.nber.org/research/data/historical-cross-country-technology-adoption-hccta-dataset)
-+ 
-
-## CMU Movie Summary Corpus
-
-The CMU Movie Summary Corpus is a collection of 42,306 movie plot summaries and metadata at both the movie level (including box office revenues, genre and date of release) and character level (including gender and estimated age).  This data supports work in the following paper:
-
-David Bamman, Brendan O'Connor and Noah Smith, "Learning Latent Personas of Film Characters," in: Proceedings of the Annual Meeting of the Association for Computational Linguistics (ACL 2013), Sofia, Bulgaria, August 2013.
-
-All data is released under a Creative Commons Attribution-ShareAlike License. For questions or comments, please contact David Bamman (dbamman@cs.cmu.edu).
-
-## Data
-
-1. plot_summaries.txt.gz [29 M] 
-
-Plot summaries of 42,306 movies extracted from the November 2, 2012 dump of English-language Wikipedia.  Each line contains the Wikipedia movie ID (which indexes into movie.metadata.tsv) followed by the summary.
-
-2. corenlp_plot_summaries.tar.gz [628 M, separate download]
-
-The plot summaries from above, run through the Stanford CoreNLP pipeline (tagging, parsing, NER and coref). Each filename begins with the Wikipedia movie ID (which indexes into movie.metadata.tsv).
-
-## Metadata
-
-3. movie.metadata.tsv.gz [3.4 M]
-
-Metadata for 81,741 movies, extracted from the Noverber 4, 2012 dump of Freebase.  Tab-separated; columns:
-
-1. Wikipedia movie ID
-2. Freebase movie ID
-3. Movie name
-4. Movie release date
-5. Movie box office revenue
-6. Movie runtime
-7. Movie languages (Freebase ID:name tuples)
-8. Movie countries (Freebase ID:name tuples)
-9. Movie genres (Freebase ID:name tuples)
-
-4. character.metadata.tsv.gz [14 M]
-
-Metadata for 450,669 characters aligned to the movies above, extracted from the Noverber 4, 2012 dump of Freebase.  Tab-separated; columns:
-
-1. Wikipedia movie ID
-2. Freebase movie ID
-3. Movie release date
-4. Character name
-5. Actor date of birth
-6. Actor gender
-7. Actor height (in meters)
-8. Actor ethnicity (Freebase ID)
-9. Actor name
-10. Actor age at movie release
-11. Freebase character/actor map ID
-12. Freebase character ID
-13. Freebase actor ID
-
-## Test data
-
-tvtropes.clusters.txt
-
-72 character types drawn from tvtropes.com, along with 501 instances of those types.  The ID field indexes into the Freebase character/actor map ID in character.metadata.tsv.
-
-name.clusters.txt
-
-
-970 unique character names used in at least two different movies, along with 2,666 instances of those types.  The ID field indexes into the Freebase character/actor map ID in character.metadata.tsv.
-
-# Additional datasets
-
-In addition to the CMU 
-
-## Column names
-
-column_names.txt
-
-The column names we assign to the data from different corpuses, if they are not already available.
++ 📜 *missing_box_office.csv* extra box office data, scraped from [Box Office Mojo](https://www.boxofficemojo.com/)
++ 📜 *missing_release_date.csv* extra release date data, scraped from [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
++ 📜 *movie_metadata.csv* for general film statistics, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
++ ❌ *name.clusters.txt* film character names, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
++ 🧻 *phrases_early_movies.txt* quality phrases, and the plots of the earliest movies with the highest box office containing that phrase
++ 📜 *plot_summaries.txt* plot summaries, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
++ 🧻 *quality_phrases.txt* a list of phrases lifted from plot_summaries.txt that AutoPhrase deemed high quality
++ ❌ *ratings.tsv* a list of film ratings, from  [IMDb](https://developer.imdb.com/non-commercial-datasets/)
++ 📜 *rotten_tomatoes_critic_reviews.zip* a list of movie reviews, from [Rotten Tomatoes](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset/data?select=rotten_tomatoes_critic_reviews.csv)
++ 📜 *rotten_tomatoes_movies.csv* used in sentiment analysis, metadata about movies on [Rotten Tomatoes](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)
++ 🧻 *top_phrases.txt* for each decade, highest TF-IDF phrases with the earliest associated movie, used for final quality phrase table
++ ❌ *tvtropes.clusters.txt* character archetypes, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
++ 📜 *wikidata_freebase_imdb.tsv* used for data augmentation, a mapping between Wikidata, Freebase, and IMDb Ids, queried from [Wikidata Query Service](https://query.wikidata.org/) by [Linkai Dai](https://duckduckgo.com/?q=Linkai+Dai&atb=v314-1&ia=web)
