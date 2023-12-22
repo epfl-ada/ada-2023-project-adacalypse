@@ -4,7 +4,7 @@
 
 📁 *code* contains our main python notebook **P3_notebook.ipynb** as well as python code files with auxiliary or reusable logic.
 
-📁 *data* contains primary data sources as well as intermediate results. 
+📁 *data* contains primary data sources as well as intermediate results. More details about each file's usage can be read in the folder's README.md. The motivation for each source can be read below.
 
 ## Modern Times: Rise of Technology in Cinema
 
@@ -36,10 +36,9 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 ### Proposed additional datasets
 - **[Lost Movie Wikibase](https://en.wikipedia.org/wiki/List_of_lost_films):** (<1Mb) List of most relevant US lost movies. This lists 107 movies along with their director, release year, cast, and historical notes. From this list, 48 are also listed in our movie data. It is only a small sample but as it lists prominent known films, it could still be of a certain relevance. 
 - **[HCCTA](https://www.nber.org/research/data/historical-cross-country-technology-adoption-hccta-dataset):** (1.6 Mb) A dataset for the analysis of technology adoption patterns over the last 250 years. The missing values are encoded as full-stops. The data is mostly from large western countries. Examples of technologies include industrial robots (count), railway line length (km), mobile phones owned (count), private cars (count).
-- **[IMDB Ratings](https://developer.imdb.com/non-commercial-datasets/):** (70 Mb) Dataset that contains ratings of films (0-10) and the number of votes. Each film has an ‘imdb_id’ that has been mapped to ‘wikipedia_id’.
 - **[RottenTomatoes](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset/data?select=rotten_tomatoes_critic_reviews.csv):** rotten_tomatoes_critic_reviews (214 Mo) and rotten_tomatoes_movies (16.3 Mo) were merged on id to link the reviews with movie names and release year. Dataset contains movie reviews from the RottenTomatoes website.
-- **[Wikipedia](https://fr.wikipedia.org):** Complete release date information. For this data, as well as the next entry, web scraping was performed by checking the html script based on the wikipedia and imdb IDs.
-- **[BoxOfficeMojo](https://www.boxofficemojo.com/):** Complete the box office information
+- **[Wikipedia](https://fr.wikipedia.org):** Additional movie release date information, for the purposes of augmenting the data.
+- **[BoxOfficeMojo](https://www.boxofficemojo.com/):** Additional box office information, for the purposes of augmenting the data.
 
 
 ### Organization within team
