@@ -8,6 +8,10 @@ This README describes the primary data sources 📜, intermediary data 🧻, and
 
 + 🧻 *column_names.txt* a list of pandas DataFrame columns names to associate with features the CMU Movie Summary Corpus
 
++ 🧻 *tech_words.csv*, *reduce_tech_words.csv*, *plot_summaries_with_scores.csv* and *filtered_techniques_reviews_saved.csv* are files that contain dataframes that are computed in P3 notebook but are saved and loaded directly to save time
+
++ 🧻 *final_reviews.zip* due to its size, is a compressed file that needs to be extracted before running the code in P3 notebook. It also contain a dataframe computed in P3 notebook but saved and loaded directly to save time
+
 + 📁/📜 *country_shape_data* used to generate country plots from [Natural Earth](https://www.naturalearthdata.com/)
 
 + 📜 *hccta.txt* for historical correlation analysis, from the [Historical Cross Country Technology Adoption Dataset](https://www.nber.org/research/data/historical-cross-country-technology-adoption-hccta-dataset)
