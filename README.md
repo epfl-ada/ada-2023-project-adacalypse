@@ -9,17 +9,17 @@
 ## Modern Times: Rise of Technology in Cinema
 
 ### Abstract
-Cinema is a form of art that has blossomed in the 20th century and has nowadays become a major medium and a reflection of our society and values. In this project, we are interested in exploring and analyzing how technological evolution shaped the movie industry. This evolution can be characterized by events such as the inclusion of sound and color, the invention and use of atomic bombs, the space race and moon landing, and the rise of the internet and social media. We believe that we should observe a two-fold impact of technology on our dataset: one is on the technology used to produce the movies in itself, thus impacting actor careers and film genres; the other is technology itself as a narrative theme appearing in plot summaries. We seek to measure, through a statistical and data-centered lens, this cultural evolution.
+Cinema is a form of art that has blossomed in the 20th century and has nowadays become a major medium and a reflection of our society and values. In this project, we are interested in exploring and analyzing how technological evolution shaped the movie industry. This evolution can be characterized by events such as the invention of sound and color film, nuclear power, various modes of transport, the space race, computers, and the rise of the internet. We believe that we should observe a two-fold impact of technology on our dataset: one is on the technology used to produce the movies in itself, thus impacting actor careers, film genres, and popular opinion; the other is technology itself as a narrative theme appearing in plot summaries. We seek to measure, through a statistical and data-centered lens, this cultural evolution.
 
 
 ### Research questions 
 - **Lost movies:** Lost films are movies of which there is no surviving print. We want to study how the digitalization of films has reduced the amount of lost films. Were some actors completely forgotten after the loss of the film they starred in? 
-- **Remakes:** Which stories are so popular that they were remade over and over with the help of new technologies and opportunities
+- **Remakes:** Which stories are so popular that they were remade over and over with the help of new technologies and opportunities?
 - **Introduction of sound and color:** To what degree did the introduction of sound and color change the relevance of actors? Were some silent-era actors pushed out of the medium due to new challenges of speaking lines? How fast was the transition from silent to sound, from monochrome to color, and why? 
-- **Historical events parallelisation:** We seek time-wise correlation between historical technological advances and related films. Which movies and time periods were particularly influential? What are some of the main technological themes per each decade?
+- **Technological development:** We seek to measure time-wise correlation between historical technological advances and the proportion of films related to that technology. Which movies and time periods were particularly influential? What are some of the main technological themes per each decade? 
 - **Sentiment analysis:** 
-    - **Tech in real life:** How have film genres diversified and grown with advancements in video editing and special effects? Given these advancements, has the public become more picky about CGI? Which movies were seen as visual marvels in the past and are now looked back on in horror? 
-    - **Tech in movies:** In the second part, we want to investigate the sentiment on technology related elements present in the movie.
+    - **Tech in real life:** How have people's opinions changed with regard to certain technologies, such as CGI and VFX? Are certain techniques favoured in certain genres? Which movies were seen as visual marvels in the past and are now looked back on in horror? 
+    - **Tech in movies:** How are technologies written about in movies? Which technologies are seen as good, or bad? How does this break down per genre?
 
 
 ### Methods
@@ -37,8 +37,8 @@ Cinema is a form of art that has blossomed in the 20th century and has nowadays 
 - **[Lost Movie Wikibase](https://en.wikipedia.org/wiki/List_of_lost_films):** (<1Mb) List of most relevant US lost movies. This lists 107 movies along with their director, release year, cast, and historical notes. From this list, 48 are also listed in our movie data. It is only a small sample but as it lists prominent known films, it could still be of a certain relevance. 
 - **[HCCTA](https://www.nber.org/research/data/historical-cross-country-technology-adoption-hccta-dataset):** (1.6 Mb) A dataset for the analysis of technology adoption patterns over the last 250 years. The missing values are encoded as full-stops. The data is mostly from large western countries. Examples of technologies include industrial robots (count), railway line length (km), mobile phones owned (count), private cars (count).
 - **[RottenTomatoes](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset/data?select=rotten_tomatoes_critic_reviews.csv):** rotten_tomatoes_critic_reviews (214 Mo) and rotten_tomatoes_movies (16.3 Mo) were merged on id to link the reviews with movie names and release year. Dataset contains movie reviews from the RottenTomatoes website.
-- **[Wikipedia](https://fr.wikipedia.org):** Additional movie release date information, for the purposes of augmenting the data.
-- **[BoxOfficeMojo](https://www.boxofficemojo.com/):** Additional box office information, for the purposes of augmenting the data.
+- **[Wikipedia](https://fr.wikipedia.org):** (<1Mb) Additional movie release date information, for the purposes of augmenting the data.
+- **[BoxOfficeMojo](https://www.boxofficemojo.com/):** (<1Mb) Additional box office information, for the purposes of augmenting the data.
 
 
 ### Organization within team
@@ -62,7 +62,7 @@ Work was highly collaborative (and effective!), so it is difficult to exactly at
   </tr>
   <tr>
     <td class="tg-0lax">Lena </td>
-    <td class="tg-0lax"> (1) Lost movie, Chaplin and remake analysis <br> (2) Web site creation <br> (3) Elaboration and pre-writing of datastory for the website </td>
+    <td class="tg-0lax"> (1) Lost movie, Chaplin GIFs and remake analysis <br> (2) Web site creation <br> (3) Elaboration and pre-writing of datastory for the website </td>
   </tr>
   <tr>
     <td class="tg-0lax">Olivia</td>
