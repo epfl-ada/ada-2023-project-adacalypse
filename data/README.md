@@ -1,6 +1,13 @@
 # Datasets
 
-This README describes the raw data and intermediary files we use for the project.
+This README describes the primary data sources 📜 and intermediary data 🧻 we used for the project, in alphabetical order.
+
++ 📜 *all_lost_films.csv* for lost film analysis, downloaded from [List of Lost Films, Wikipedia](https://en.wikipedia.org/wiki/List_of_lost_films)
++ 📜 *character_metadata.csv* for character analysis, from the [CMU Movie Summary Corpus](https://www.cs.cmu.edu/~ark/personas/)
++ 🧻 *column_names.txt* a list of pandas DataFrame columns names to associate with features the CMU Movie Summary Corpus
++ 📜 *country_shape_data* for geographical data, used generate country plots from [Natural Earth](https://www.naturalearthdata.com/)
++ 📜 *hccta.txt* for historical correlation analysis, from the [Historical Cross Country Technology Adoption Dataset](https://www.nber.org/research/data/historical-cross-country-technology-adoption-hccta-dataset)
++ 
 
 ## CMU Movie Summary Corpus
 
